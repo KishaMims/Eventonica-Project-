@@ -60,11 +60,7 @@ const EventsForm = () => {
         setEvents([...events, newEvent]);
     }
 
-    // const handleOnSubmit = (e) => {
-    //     e.preventDefault();
-    //     const newEvent = { id: id, name: name, email: email, description: description, category: category};
-    //     setEvents([...events, newEvent]);
-    //  {events.map((event, index) => <li key={index}>{event.date}<br/>{event.name}: {event.description} </li>)}
+ 
    
     return (
         <div>
