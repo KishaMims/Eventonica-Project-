@@ -1,6 +1,6 @@
-import res from 'express/lib/response';
+//import res from 'express/lib/response';
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DeleteUser from './DeleteUser';
 // import { Buffer } from 'buffer';
 // global.Buffer = Buffer;
@@ -30,16 +30,16 @@ export default function Users() {
     const [email, setEmail] = useState(" ");
     const [id, setID] = useState(" ");
     
-    const getUsers = () => {
-        fetch(`http://localhost:4000/users`)
-          .then((res) => res.json())
-          .then((res) => setUsers(res.users));
-      };
+    // const getUsers = () => {
+    //     fetch(`http://localhost:4000/users`)
+    //       .then((res) => res.json())
+    //       .then((res) => setUsers(res.users));
+    //   };
       
-      useEffect(() => {
-        // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
-        getUsers();
-      }, []);
+    //   useEffect(() => {
+    //     // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
+    //     getUsers();
+    //   }, []);
 
     // useEffect(() => {
     //     fetch(`http://localhost:4000/users`)
