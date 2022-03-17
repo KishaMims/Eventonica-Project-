@@ -88,6 +88,7 @@ const EventsForm = () => {
                                 onChange={(e) => handleInputChange(e)}
                             />
                         </fieldset>
+                        <br/>
                         {/* Add more form fields here */}
                         <fieldset>
                             <label>
@@ -102,6 +103,7 @@ const EventsForm = () => {
                                 onChange={(e) => handleInputChange(e)}
                             />
                         </fieldset>
+                        <br/>
                         <fieldset>
                             <label>
                                 Description</label>
@@ -114,6 +116,7 @@ const EventsForm = () => {
                                 onChange={(e) => handleInputChange(e)}
                             />
                         </fieldset>
+                        <br/>
                         <fieldset>
                             <label>
                                 Category</label>
@@ -126,6 +129,7 @@ const EventsForm = () => {
                                 onChange={(e) => handleInputChange(e)}
                             />
                             <fieldset>
+                            <br/>
                                 <label>
                                     Date
                                 </label>
