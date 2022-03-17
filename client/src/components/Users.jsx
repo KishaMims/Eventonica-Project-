@@ -1,14 +1,16 @@
+import res from 'express/lib/response';
 import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DeleteUser from './DeleteUser';
-
+// import { Buffer } from 'buffer';
+// global.Buffer = Buffer;
 
 export default function Users() {
     //dummy data 
 
-    const marlin = { name: 'Marlin', email: 'marlin@gmail.com', id: '1' };
-    const nemo = { name: 'Nemo', email: 'nemo@gmail.com', id: '2' };
-    const dory = { name: 'Dory', email: 'dory@gmail.com', id: '3' };
+    // const marlin = { name: 'Marlin', email: 'marlin@gmail.com', id: '1' };
+    // const nemo = { name: 'Nemo', email: 'nemo@gmail.com', id: '2' };
+    // const dory = { name: 'Dory', email: 'dory@gmail.com', id: '3' };
 
     const handleDeleteUser = (deleteId) => {
         const newUsers = users.filter((i) => i.id !== deleteId);
@@ -22,15 +24,31 @@ export default function Users() {
     setUsers([...users, newUser]);
   };
 
-//   function EmptyFields() {}
-//   const handleSubmitChange = (e) => {
-//     setUsers(e.target.value);
-//   };
-
-    const [users, setUsers] = useState([marlin, nemo, dory]);
+  //marlin, nemo, dory]
+    const [users, setUsers] = useState([]);
     const [name, setName] = useState(" ");
     const [email, setEmail] = useState(" ");
     const [id, setID] = useState(" ");
+    
+    const getUsers = () => {
+        fetch(`http://localhost:4000/users`)
+          .then((res) => res.json())
+          .then((res) => setUsers(res.users));
+      };
+      
+      useEffect(() => {
+        // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
+        getUsers();
+      }, []);
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:4000/users`)
+    //         .then((response) => response.json())
+    //         .then(info => {
+    //             setUsers(info.results);
+    //             console.log('Users fetched...', info);
+    //         })
+    // }, []);
 
     return (
         <section className="user-management">
