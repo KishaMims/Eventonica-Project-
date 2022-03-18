@@ -13,75 +13,123 @@ export default function Users() {
     // const nemo = { name: 'Nemo', email: 'nemo@gmail.com', id: '2' };
     // const dory = { name: 'Dory', email: 'dory@gmail.com', id: '3' };
 
-    const handleDeleteUser = (deleteId) => {
-        const newUsers = users.filter((i) => i.id !== deleteId);
-        setUsers(newUsers);
-    };
+    // old submit new user funct
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     const newUser = { id: id, name: name, email: email };
+    //     addUsers(newUser);
+    //     setUsers([...users, newUser]);
+    // };
+
+    // old delete user function
+    // const handleDeleteUser = (deleteId) => {
+    //     const newUsers = users.filter((i) => i.id !== deleteId);
+    //     setUsers(newUsers);
+    // };
+
+    //previous fetch and post with no db
+    // const getUsers = () => {
+    //     fetch(`http://localhost:4000/users`)
+    //         .then((res) => res.json())
+    //         .then((res) => setUsers(res.users));
+    // };
+    // useEffect(() => {
+    //     // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
+    //     getUsers();
+    // }, []);
+
+    // const addUsers = (newUser) => {
+    //     fetch(`http://localhost:4000/users`, {
+    //         method: 'POST',
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify(newUser)
+    // }).then(() => {
+    //         console.log('new user added');
+    //     })
+    // };
+
+    // useEffect(() => {
+
+    //       }, []);
+    // client/src/components/Users.js
+
+    // const deleteUser = (deleteId) => {
+    //     const newUsers = users.filter((i) => i.id !== deleteId);
+    //     setUsers(newUsers);
+    // };
+
+    // const handleDeleteUser = (deleteId) => {
+    //     const newUsers = users.filter((i) => i.id !== deleteId);
+    //     setUsers(newUsers);
+    // };
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newUser = { id: id, name: name, email: email };
-        addUsers(newUser);
-        setUsers([...users, newUser]);
-    };
+    // var requestOptions = {
+    //     method: 'DELETE',
+    //     redirect: 'follow'
+    //   };
 
-    //marlin, nemo, dory]
+    //   fetch("http://localhost:4000/users", requestOptions)
+    //     .then(response => response.text())
+    //     .then(result => console.log(result))
+    //     .catch(error => console.log('error', error));
+
+    const handleDeleteUser = async (deleteUser) => {
+
+        const response = await fetch(`http://localhost:4000/users${deleteUser}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+
+            const deleteUsers = users.filter((user) => user.id !== deleteUser);
+            console.log(deleteUsers);
+            setUsers(deleteUsers);
+        })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
     const [users, setUsers] = useState([]);
     const [name, setName] = useState(" ");
     const [email, setEmail] = useState(" ");
     const [id, setID] = useState(" ");
 
-    const getUsers = () => {
-        fetch(`http://localhost:4000/users`)
-            .then((res) => res.json())
-            .then((res) => setUsers(res.users));
+
+    //get request to db
+    const getUsers = async () => {
+        const response = await fetch('http://localhost:4000/users');
+        const user = await response.json();
+        setUsers(user);
     };
 
-
     useEffect(() => {
-        // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
         getUsers();
     }, []);
 
-    // POST request using fetch inside useEffect React hook
-    //     const addUsers = () => {
-    //         method: 'POST',
-    //         body: JSON.stringify(setUsers)
-    //     },[])
-    //     fetch(`http://localhost:4000/users`)
-    //         .then(response => response.json())
-    //         .then((res) => setUsers(res.users));
-    //         console.log('new user added');
+    // add user with db
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newUser = { id: id, name: name, email: email };
 
-    //   useEffect(() => {
-    //     addUsers();
-    //   }, []);
-    const addUsers = (newUser) => {
-        fetch(`http://localhost:4000/users`, {
+        const rawResponse = await fetch('http://localhost:4000/users', {
             method: 'POST',
-            headers: {"Content-Type": "application/json"},
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(newUser)
-    }).then(() => {
-            console.log('new user added');
-        })
+        });
+        const content = await rawResponse.json();
+
+        setUsers([...users, content]);
     };
-
-    useEffect(() => {
-            
-          }, []);
-    // useEffect(() => {
-    //     // POST request using fetch inside useEffect React hook
-    //     const addUsers = {
-    //         method: 'POST',
-    //         body: JSON.stringify(setUsers)
-    //     };
-    //     fetch('http://localhost:4000/users', addUsers)
-    //         .then((res) => res.json())
-    //         .then((res) => setUsers(res.users));
-
-    //     // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    // }, []);
 
 
 
