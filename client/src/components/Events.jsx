@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react'
 import formReducer from "./formReducer.js";
 import { useState } from 'react';
+import DeleteEvents from './DeleteEvents.jsx';
 
 const event1 = {
     id: "1",
@@ -26,8 +27,6 @@ const event3 = {
     category: "Education",
 };
 
-
-
 const EventsForm = () => {
 
 
@@ -40,6 +39,15 @@ const EventsForm = () => {
     };
     const [events, setEvents] = useState([event1, event2, event3]);
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
+
+    // const handleDeleteUser = (deleteId) => {
+    //     const newUsers = users.filter((i) => i.id !== deleteId);
+    //     setUsers(newUsers);
+      //};
+    const handleDeletEvent = (eventId) => {
+          const newEvents = events.filter((i) => i.id !== eventId);
+            setEvents(newEvents);
+        };
 
     const handleInputChange = (e) => {
         dispatch({
@@ -59,9 +67,6 @@ const EventsForm = () => {
         //setEvent -> copying what is already there by using ...events
         setEvents([...events, newEvent]);
     }
-
- 
-   
     return (
         <div>
             <section className="event-management">
@@ -145,6 +150,7 @@ const EventsForm = () => {
                             <input type="submit" />
                         </fieldset>
                     </form>
+                    <DeleteEvents handleDeletEvent={handleDeletEvent}/>
                 </div>
             </section>
         </div>

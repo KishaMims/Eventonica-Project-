@@ -47,16 +47,27 @@ router.delete("/:id", async (req, res) => {
   // : acts as a placeholder
 const userId = req.params.id;
 try {
-await db.none("DELETE FROM users WHERE id=$1", [userId]);
-res.send({ status: "success" });
+const deletedUser =  db.none("DELETE FROM users WHERE id=$1", [userId]);
+res.send(deletedUser);
 } catch (e) {
 return res.status(400).json({ e });
 }
 });
 
+// router.delete("/:id", async (req, res) => {
+//   //: acts as a placeholder
+//   const userId = req.params.id;
+//   try {
+//     await db.none("DELETE FROM users WHERE id=$1", [userId]);
+//     res.send({ status: "success" });
+//   } catch (e) {
+//     return res.status(400).json({ e });
+//   }
+// });
+
 module.exports = router;
 
-
+//res.send({ status: "success" });
 
 // previous post that worked 
 // router.post('/', function (req, res, next) {

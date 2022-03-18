@@ -64,32 +64,31 @@ export default function Users() {
     // };
 
 
-    // var requestOptions = {
-    //     method: 'DELETE',
-    //     redirect: 'follow'
-    //   };
-
-    //   fetch("http://localhost:4000/users", requestOptions)
-    //     .then(response => response.text())
-    //     .then(result => console.log(result))
-    //     .catch(error => console.log('error', error));
-
-    const handleDeleteUser = async (deleteUser) => {
-
-        const response = await fetch(`http://localhost:4000/users${deleteUser}`, {
+    const handleDeleteUser = (id) => {
+        deleteUser(id);
+    };
+    const deleteUser= (id) => {
+            fetch(`http://localhost:4000/users/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
             },
 
         })
+        // express app not returning user object
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
 
-            const deleteUsers = users.filter((user) => user.id !== deleteUser);
-            console.log(deleteUsers);
-            setUsers(deleteUsers);
+            const newUsers = users.filter((user) => user.id !== user.id);
+            console.log(newUsers);
+            setUsers(newUsers);
+
+            // const deleteUsers = users.filter((user) => user.id !== deleteUser);
+            // console.log(deleteUsers);
+            // setUsers(deleteUsers);
+
+            
         })
             .catch((error) => {
                 console.error('Error:', error);
@@ -116,7 +115,8 @@ export default function Users() {
     // add user with db
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newUser = { id: id, name: name, email: email };
+       // const newUser = { id: id, name: name, email: email };
+        const newUser = {name: name, email: email };
 
         const rawResponse = await fetch('http://localhost:4000/users', {
             method: 'POST',
