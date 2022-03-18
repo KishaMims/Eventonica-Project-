@@ -62,7 +62,15 @@ export default function Users() {
     //     const newUsers = users.filter((i) => i.id !== deleteId);
     //     setUsers(newUsers);
     // };
+    const getUsers = async () => {
+        const response = await fetch('http://localhost:4000/users');
+        const user = await response.json();
+        setUsers(user);
+    };
 
+    useEffect(() => {
+        getUsers();
+    }, []);
 
     const handleDeleteUser = (id) => {
         deleteUser(id);
@@ -93,24 +101,25 @@ export default function Users() {
             .catch((error) => {
                 console.error('Error:', error);
             });
-    }
+            getUsers();
+    };
 
     const [users, setUsers] = useState([]);
     const [name, setName] = useState(" ");
     const [email, setEmail] = useState(" ");
-    const [id, setID] = useState(" ");
+    //const [id, setID] = useState(" ");
 
 
     //get request to db
-    const getUsers = async () => {
-        const response = await fetch('http://localhost:4000/users');
-        const user = await response.json();
-        setUsers(user);
-    };
+    // const getUsers = async () => {
+    //     const response = await fetch('http://localhost:4000/users');
+    //     const user = await response.json();
+    //     setUsers(user);
+    // };
 
-    useEffect(() => {
-        getUsers();
-    }, []);
+    // useEffect(() => {
+    //     getUsers();
+    // }, []);
 
     // add user with db
     const handleSubmit = async (e) => {
@@ -139,8 +148,8 @@ export default function Users() {
 
             <ul id="users-list">
                 {/* display all existing Users here */}
-                {users.map(user =>
-                    <li key={user.id}> {user.name} {user.email}</li>
+                {users.map((user, index) =>
+                    <li key={index}> {user.name} {user.email}</li>
                 )}
             </ul>
             <div>
@@ -165,14 +174,6 @@ export default function Users() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <label>Id:</label>
-                        <input
-                            type="text"
-                            id="add-user-id"
-                            placeholder="ID"
-                            value={id}
-                            onChange={(e) => setID(e.target.value)}
-                        />
                     </fieldset>
                     <button type="submit">Add</button>
                 </form>
@@ -183,3 +184,5 @@ export default function Users() {
         </section>
     )
 };
+
+

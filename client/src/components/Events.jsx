@@ -88,6 +88,7 @@ const EventsForm = () => {
                                 type="text"
                                 id="add-event-name"
                                 name="name"
+                                reset="reset"
                                 //placeholder="Enter Event Name"
                                 value={formState.name}
                                 onChange={(e) => handleInputChange(e)}
@@ -102,6 +103,7 @@ const EventsForm = () => {
                             <input
                                 type="text"
                                 id="add-id-name"
+                                reset="reset"
                                 //placeholder="Enter ID"
                                 name="id"
                                 value={formState.id}
